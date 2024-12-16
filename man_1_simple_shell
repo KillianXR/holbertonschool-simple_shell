@@ -1,0 +1,10 @@
+.SH NAME
+simple_shell \- A simple UNIX command interpreter (shell)
+
+.SH SYNOPSIS
+.B simple_shell
+[\-h] [\--help]
+
+.SH DESCRIPTION
+.B simple_shell
+Is a simple UNIX command interpreter who can Handle command lines with arguments.
