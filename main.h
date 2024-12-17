@@ -3,5 +3,6 @@
 
 int main(int ac, char **av);
 int prompt (void);
+int gettpid(void);
 
 #endif
