@@ -9,17 +9,17 @@
 int prompt(void)
 {
 	char *line = NULL;
-	size_t len = 0;
-	ssize_t nbread;
+	size_t length = 0;
+	ssize_t nchar;
 
 	while (1)
 	{
 	/* Prints the prompt */
 		printf("$ ");
 	/* Reads a line from the Standard Input */
-		nbread = getline(&line, &len, stdin);
+		nchar = getline(&line, &length, stdin);
 	/* Breaks the loop if EOF is reached */
-	if (nbread == -1)
+	if (nchar == -1)
 	{
 		break;
 	}
