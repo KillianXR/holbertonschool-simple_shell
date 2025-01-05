@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern char **environ;
-
 int main(void) 
 {
-	for (char **env = environ; *env != NULL; env++) 
+	char *env;
+	extern char **environ;
+	int count;
+   
+	for (count = 0; environ[count] != NULL; count++) 
 	{
-		printf("%s\n", *env);
+		env = environ[count];
+		printf("%s\n", env);
 	}
- return (0);
+
+	return (0);
 }
