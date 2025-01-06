@@ -7,28 +7,30 @@
 
 int main(void)
 {
- char *line = NULL;
- size_t len = 0;
- ssize_t nread;
- char **args;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t nread;
+	char **args;
 
- while (1)
- {
- printf("❓ UnknownCommand> ");
- nread = getline(&line, &len, stdin);
- if (nread == -1)
- {
-  free(line);
-		break;  /* Sortie de la boucle en cas d'erreur ou EOF */
- }
+	while (1)
+	{
+	printf("❓ UnknownCommand> ");
+	nread = getline(&line, &len, stdin);
+	if (nread == -1)
+	{
+	free(line);
+	/* Sortie de la boucle en cas d'erreur ou EOF */
+	break;
+	}
 
- if (line[nread - 1] == '\n')
-  	line[nread - 1] = '\0';
+	if (line[nread - 1] == '\n')
+		line[nread - 1] = '\0';
 
- if (strcmp(line, "exit") == 0)
- {
-  	free(line);
-			break;  /* Sortie de la boucle si la commande est "exit" */
+	if (strcmp(line, "exit") == 0)
+	{
+	free(line);
+	/* Sortie de la boucle si la commande est "exit" */
+	break;
  }
 
  args = _splitline(line);

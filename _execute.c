@@ -24,17 +24,17 @@ int _execute(char **args)
  }
  else if (child_pid == 0)
  {
- if (execve(args[0], args, environ) == -1)
-  {
-   perror("/.simple_shell");
-   /* Libération de args en cas d'échec */   
-			free(args);
-   exit(1);
-  }
- }
- else
- {
-  wait(&status);
- }
- return (0);
+	if (execve(args[0], args, environ) == -1)
+	{
+	perror("/.simple_shell");
+	/* Libération de args en cas d'échec */   
+	free(args);
+	exit(1);
+	}
+	}
+	else
+	{
+		wait(&status);
+	}
+	return (0);
 }

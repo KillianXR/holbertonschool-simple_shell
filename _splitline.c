@@ -13,33 +13,33 @@ char **_splitline(char *line)
 
  if (!args)
  {
-  perror("malloc failed");
-		free(line);
-		free(args);
-  exit(1);
+ perror("malloc failed");
+	free(line);
+	free(args);
+	exit(1);
  }
 	/* Split by space, tab, or new line */
  token = strtok(line, " \t\r\n\a"); 
  while (token != NULL)
  {
- 	args[position] = token; 
-  position++;
+	args[position] = token; 
+	position++;
 
-  /* Reallocate if more space is needed */
-  if (position >= 64)
-  {
-  	args = realloc(args, 128 * sizeof(char *));
+	/* Reallocate if more space is needed */
+	if (position >= 64)
+ {
+  args = realloc(args, 128 * sizeof(char *));
   if (!args)
   {
-   perror("realloc failed");
-			free(line);
-			free(args);
-   exit(1);
+		perror("realloc failed");
+		free(line);
+		free(args);
+		exit(1);
   }
  }
 
  token = strtok(NULL, " \t\r\n\a"); 
  }
  args[position] = NULL;
- return args;
+ return (args);
 }
