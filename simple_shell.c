@@ -24,27 +24,27 @@ int main(void)
 	}
 
 	if (line[nread - 1] == '\n')
-		line[nread - 1] = '\0';
+	line[nread - 1] = '\0';
 
 	if (strcmp(line, "exit") == 0)
 	{
 	free(line);
 	/* Sortie de la boucle si la commande est "exit" */
 	break;
- }
+	}
 
- args = _splitline(line);
- _execute(args);
+	args = _splitline(line);
+	_execute(args);
 	free(line);
- free(args);
- }
+	free(args);
+	}
 
- /* Assurez-vous que line est libéré avant de quitter */
- if (line)
- {
-  free(line);
-  line = NULL;
- }
- free(line);
- return (0);
+	/* Assurez-vous que line est libéré avant de quitter */
+	if (line)
+	{
+	free(line);
+	line = NULL;
+	}
+	free(line);
+	return (0);
 }
