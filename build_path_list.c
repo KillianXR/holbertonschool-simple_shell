@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+	* main - put the path directories in a linked list
+	* Return: void
+ */
 void main() 
 {
 	char *path = getenv("PATH");
