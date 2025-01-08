@@ -1,13 +1,13 @@
 #include "main.h"
 
 /**
-* main - simple UNIX command interpreter
-* This programms displays a prompt and wait an input
-* comming from an user, then it executes the command
-* and to exit, use exit or EOF.
-* Return: 0 (Success).
-*/
-
+ * main - simple UNIX command interpreter
+ *
+ * This program displays a prompt, waits for input from the user,
+ * executes the command, and exits on the "exit" command or EOF (Ctrl+D).
+ *
+ * Return: 0 (Success).
+ */
 int main(void)
 {
 	char *line = NULL;
@@ -19,37 +19,69 @@ int main(void)
 
 	while (1)
 	{
-	/* Displays a prompt for the user */
-	printf("❓ UnknownCommand> ");
-	nread = getline(&line, &len, stdin);
-	/* Exit the loop on error or EOF */
-	if (nread == -1)
-	{
-	free(line);
-	break;
-	}
-	/* Remove the new line character from input */
-	if (line[nread - 1] == '\n')
-		line[nread - 1] = '\0';
+		/* Display the prompt */
+		printf("cisfun#");
+		nread = getline(&line, &len, stdin);
 
-	/* Exit the program if the command is exit */
-	if (strcmp(line, "exit") == 0)
-	{
-	free(line);
-	break;
+		/* Handle EOF (Ctrl+D) and errors */
+		if (nread == -1)
+		{
+			free(line);
+			printf("\n");
+			break;
+		}
+
+		/* Remove the new line character from input */
+		if (line[nread - 1] == '\n')
+			line[nread - 1] = '\0';
+
+		/* Exit if the user types "exit" */
+		if (strcmp(line, "exit") == 0)
+		{
+			free(line);
+			break;
+		}
+
+		/* Split the line into arguments */
+		args = malloc(sizeof(char *) * 2);  // Only one argument
+		if (!args)
+		{
+			perror("malloc");
+			free(line);
+			continue;
+		}
+
+		args[0] = line;  // Only the command itself
+		args[1] = NULL;   // NULL-terminate the arguments array
+
+		/* Fork and execute the command */
+		child_pid = fork();
+		if (child_pid == -1)
+		{
+			perror("fork");
+			free(args);
+			free(line);
+			continue;
+		}
+
+		if (child_pid == 0)  // Child process
+		{
+			if (execve(args[0], args, environ) == -1)
+			{
+				perror("./simple_shell");
+			}
+			exit(1);  // Exit child process if execve fails
+		}
+		else  // Parent process
+		{
+			wait(&status);  // Wait for the child process to finish
+		}
+
+		/* Free allocated memory */
+		free(args);
 	}
-	/* Split the line into arguments then execute the command */
-	args = _splitline(line);
-	_execute(args);
-	free(line);
-	free(args);
-	}
-	/* Ensure memory is freed before exiting */
-	if (line)
-	{
-	free(line);
-	line = NULL;
-	}
+
+ /* free and return */
 	free(line);
 	return (0);
 }
