@@ -20,10 +20,10 @@ char *find_path(char *cmd)
 		return (NULL);
 	for (i = 0; dir[i]; i++)
 	{
-		_memset(buf, 0, PATH_MAX_LENGTH);
-		_strcpy(buf, dir[i]);
-		_strcat(buf, "/");
-		_strcat(buf, command);
+		memset(buf, 0, PATH_MAX_LENGTH);
+		strcpy(buf, dir[i]);
+		strcat(buf, "/");
+		strcat(buf, command);
 		stat_ret = stat(buf, &st);
 		if (stat_ret == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
 		{
