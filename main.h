@@ -13,6 +13,7 @@
 int main(void);
 char **_splitline(char *line);
 int _execute(char **args);
+char *find_path(char *cmd);
 
 /* Déclaration de l'environnement */
 extern char **environ;
