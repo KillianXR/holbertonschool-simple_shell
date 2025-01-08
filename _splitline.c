@@ -7,37 +7,41 @@
  */
 char **_splitline(char *line)
 {
-	char *token;
-	char **args = malloc(64 * sizeof(char *));
-	int position = 0;
+	char **args, **newargs, *token;
+	int count, position = 0;
+	int size = 64;
+	args = malloc(size * sizeof(char *));
 
 	if (!args)
+	{
+	perror("malloc failed");
+	free(line);
+	exit(1);
+	}
+	token = strtok(line, " \t\r\n\a");
+	while (token != NULL)
+	{
+	args[position] = token;
+	position++;
+	
+	if (position >= size)
+	{
+	size = size * 2;
+	newargs = malloc(size * sizeof(char *));
+	if (!newargs)
 	{
 	perror("malloc failed");
 	free(line);
 	free(args);
 	exit(1);
 	}
-	/* Split by space, tab, or new line */
-	token = strtok(line, " \t\r\n\a");
-	while (token != NULL)
-	{
-	args[position] = token;
-	position++;
-
-	/* Reallocate if more space is needed */
-	if (position >= 64)
-	{
-	args = realloc(args, 128 * sizeof(char *));
-	if (!args)
-	{
-	perror("realloc failed");
-	free(line);
-	free(args);
-	exit(1);
+	for (count = 0; count < position; count++)
+		{
+		newargs[count] = args[count];
+		}
+		free(args);
+		args = newargs;
 	}
-	}
-
 	token = strtok(NULL, " \t\r\n\a");
 	}
 	args[position] = NULL;
