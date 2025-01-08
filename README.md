@@ -1,67 +1,205 @@
-# Simple Shell
+# Simple Shell Project
 
-**AUTHORS:** Gabriel Bescond, Killian Lemoine
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Requirements](#requirements)
+4. [Compilation](#compilation)
+5. [Functionality](#functionality)
+6. [Usage](#usage)
+7. [Functions and System Calls](#functions-and-system-calls)
+8. [How It Works](#how-it-works)
+9. [File Descriptions](#file-descriptions)
+10. [Examples](#examples)
+11. [Authors](#authors)
 
 ---
 
-## Description
+## Introduction
 
-This project is about creating a simple UNIX command interpreter, also known as a shell. The shell should be able to accept user input, execute basic commands, and handle simple errors.
-
-### Concepts
-- Unix shell concepts
-- Process management
-- System calls
-- Input/output handling
-- Error management
+This project is a simple UNIX command-line interpreter, or shell, developed as part of the Holberton School curriculum. The shell replicates basic functionalities of `/bin/sh` and provides an environment where users can execute commands interactively or in non-interactive mode.
 
 ---
+
+## Features
+
+- Executes commands interactively and non-interactively.
+- Parses user input and tokenizes it into commands and arguments.
+- Searches for executable programs.
+- Handles basic errors, such as "command not found."
+- Supports built-in commands like `exit`.
+- Does not allow memory leaks.
+
+---
+
+## Requirements
 
 ### General
-- Allowed editors: vi, vim, emacs
-- All files must be compiled on Ubuntu 20.04 LTS using `gcc`, with the following options: `-Wall -Werror -Wextra -pedantic -std=gnu89`
-- All files should end with a new line
-- A `README.md` file is mandatory
-- Your code should follow the Betty style guide. It will be checked using `betty-style.pl` and `betty-doc.pl`
-- Your shell should not have any memory leaks
-- No more than 5 functions per file
-- All header files should be include-guarded
-- Use system calls only when necessary
-- GitHub repository should be created for the group
+
+- **Editors:** `vi`, `vim`, `emacs`
+- **OS:** Ubuntu 20.04 LTS
+- **Compiler:** `gcc` with flags `-Wall -Werror -Wextra -pedantic -std=gnu89`
+- **Style:** Betty coding style checked with `betty-style.pl` and `betty-doc.pl`
+- **Output:** Matches `/bin/sh` exactly except for the program name in error messages.
+- **Memory:** No memory leaks are allowed.
+- **File Structure:** No more than 5 functions per file, and all headers must have include guards.
+- **GitHub Repository:** Must follow project guidelines.
+
+### Allowed Functions and System Calls
+
+- All functions from `string.h`
+- `access`, `chdir`, `close`, `closedir`, `execve`, `exit`, `_exit`, `fflush`, `fork`, `free`, `getcwd`, `getline`, `getpid`, `isatty`, `kill`, `malloc`, `open`, `opendir`, `perror`, `printf`, `fprintf`, `vfprintf`, `sprintf`, `putchar`, `read`, `readdir`, `signal`, `stat`, `lstat`, `fstat`, `strtok`, `wait`, `waitpid`, `wait3`, `wait4`, `write`
 
 ---
 
-Allowed Functions and System Calls
-The following functions and system calls are allowed:
+## Compilation
 
-All functions from string.h
-access, chdir, close, execve, exit, _exit, fflush, fork, free, getcwd, getline, getpid, isatty, kill, malloc, open, opendir, perror, printf, 
-fprintf, vfprintf, sprintf, putchar, read, readdir, signal, stat, lstat, fstat, strtok, wait, waitpid, wait3, wait4, write
+The shell is compiled with the following command:
 
-## Tasks
-0. README, man, AUTHORS
-Write a README.md file
-Write a man page for your shell
-Include an AUTHORS file listing all contributors
+```bash
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+```
 
-1. Betty would be proud
-Write beautiful code that passes the Betty checks.
+---
 
-2. Simple shell 0.1
-Create a basic UNIX command line interpreter that:
-Displays a prompt and waits for the user to type a command
-Displays the prompt again after a command is executed
-Handles "end of file" condition (Ctrl+D)
-Displays an error message when a command cannot be found
+## Functionality
 
-3. Simple shell 0.2
-Handle command lines with arguments
+### Interactive Mode
 
-4. Simple shell 0.3
-Handle the PATH for finding executable programs
+The shell runs interactively when executed directly:
 
-5. Simple shell 0.4
-Implement the exit built-in command
+```bash
+$ ./hsh
+❓ UnknownCommand> ls
+file1 file2 file3
+❓ UnknownCommand> 
+exit
+```
 
-6. Simple shell 1.0
-Implement the env built-in command to print the current environment
+### Non-Interactive Mode
+
+The shell can also process commands piped into it:
+
+```bash
+$ echo "ls" | ./hsh
+file1 file2 file3
+```
+
+---
+
+## Usage
+
+1. Clone the repository to your local machine.
+2. Compile the program using the provided compilation command.
+3. Run the program interactively by executing `./hsh` or non-interactively using pipes.
+4. To check for memory leaks, use `valgrind`:
+
+```bash
+valgrind --leak-check=full --show-leak-kinds=all ./hsh
+```
+
+---
+
+## Functions and System Calls
+
+### `splitline`
+
+#### Description
+
+Divides a command line input into tokens (commands and arguments).
+
+#### Prototype
+
+```c
+char **_splitline(char *line)
+```
+
+#### Functionality
+
+- Tokenizes the input string using delimiters (space, tab, etc.).
+- Allocates memory dynamically for tokens.
+- Returns an array of strings representing the command and its arguments.
+
+#### Example
+
+Input:
+
+```bash
+ls -l /home
+```
+
+Output:
+
+```c
+["ls", "-l", "/home", NULL]
+```
+
+### `main`
+
+#### Description
+
+Serves as the entry point for the shell. Handles user input, executes commands, and manages processes.
+
+#### Functionality
+
+- Displays a prompt in interactive mode.
+- Reads input using `getline`.
+- Tokenizes input with `splitline`.
+- Forks a child process and executes commands with `execve`.
+- Waits for the child process to terminate before returning to the prompt.
+- Handles errors and exits gracefully.
+
+---
+
+## How It Works
+
+1. **Initialization**: The shell starts by displaying a prompt (if interactive).
+2. **Input Handling**: Reads input from the user via `getline`.
+3. **Parsing**: Uses `splitline` to tokenize the input.
+4. **Execution**: Searches for the command in \_execute.c, forks a process, and executes the command with `execve`.
+5. **Error Handling**: Prints appropriate error messages.
+6. **Termination**: The shell exits when the user types `exit` or EOF.
+
+---
+
+## File Descriptions
+
+- `simple_shell.c`: Contains the main function and core shell logic.
+
+- \_`splitline.c`: Implements the `splitline` function.
+
+- \_`execute.c`: Handles command execution.
+
+- `main.h`: Header file with prototypes and macros.
+
+---
+
+## Examples
+
+Interactive Mode:
+
+```bash
+$ ./hsh
+❓ UnknownCommand> pwd
+/home/user
+❓ UnknownCommand> /bin/ls
+file1 file2 file3
+❓ UnknownCommand> exit
+```
+
+Non-Interactive Mode:
+
+```bash
+$ echo "pwd" | ./hsh
+/home/user
+```
+
+---
+
+## Authors
+
+- Gabriel Bescond
+- Killian Lemoine
+
+
