@@ -26,7 +26,6 @@ int _execute(char **args)
 	if (execve(args[0], args, environ) == -1)
 	{
 	perror("/.simple_shell");
-	/* Libération de args en cas d'échec */
 	free(args);
 	exit(1);
 	}
