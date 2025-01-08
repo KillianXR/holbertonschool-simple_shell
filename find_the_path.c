@@ -1,4 +1,4 @@
-#include"main.h"
+#include "main.h"
 
 /**
  * find_path - Looks for a command in each directory specified in the PATH 
@@ -41,29 +41,34 @@ char *find_path(char *cmd)
 }
 
 /**
- * execute_cmd - function to execute the command
- * @cmd: the command to execute.
+ * _execute - Executes a command using execve.
+ * @args: The array of arguments for the command to execute.
+ *
+ * Return: 0 on success, 1 on failure.
  */
-void execute_cmd(char **cmd)
+
+int _execute(char **args)
 {
-	pid_t	pid = 0;
-	int		status = 0;
+	pid_t child_pid;
+	int status;
 
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-	}
-	else if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-		kill(pid, SIGTERM);
-	}
+	if (args[0] == NULL)
+		return (1);
 
-	else
+	child_pid = fork();
+	if (child_pid == -1)
 	{
-		if (execve(cmd[0], cmd, NULL) == -1)
-			perror("shell");
-		exit(EXIT_FAILURE);
+		perror("Error");
+		return (1);
+	}
+	else if (child_pid == 0)
+	{
+	if (execve(args[0], args, environ) == -1)
+	{
+	perror("/.simple_shell");
+	/* Libération de args en cas d'échec */
+	free(args);
+	exit(1);
+	}
 	}
 }
