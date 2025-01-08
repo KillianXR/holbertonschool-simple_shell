@@ -1,8 +1,10 @@
 #include "main.h"
 /**
 * main - simple UNIX command interpreter
-*
-* Return: nothing.
+* This programms displays a prompt and wait an input
+* comming from an user, then it executes the command
+* and to exit, use exit or EOF.
+* Return: 0 (Success).
 */
 
 int main(void)
@@ -14,32 +16,32 @@ int main(void)
 
 	while (1)
 	{
+	/* Displays a prompt for the user */
 	printf("❓ UnknownCommand> ");
 	nread = getline(&line, &len, stdin);
+	/* Exit the loop on error or EOF */
 	if (nread == -1)
 	{
 	free(line);
-	/* Sortie de la boucle en cas d'erreur ou EOF */
 	break;
 	}
-
+	/* Remove the new line character from input */
 	if (line[nread - 1] == '\n')
-	line[nread - 1] = '\0';
+		line[nread - 1] = '\0';
 
+	/* Exit the program if the command is exit */
 	if (strcmp(line, "exit") == 0)
 	{
 	free(line);
-	/* Sortie de la boucle si la commande est "exit" */
 	break;
 	}
-
+	/* Split the line into arguments then execute the command */
 	args = _splitline(line);
 	_execute(args);
 	free(line);
 	free(args);
 	}
-
-	/* Assurez-vous que line est libéré avant de quitter */
+	/* Ensure memory is freed before exiting */
 	if (line)
 	{
 	free(line);
