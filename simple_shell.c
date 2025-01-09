@@ -1,6 +1,6 @@
 #include "main.h"
 
-#define PROMPT "$ " /* Définition de l'invite de commande */
+#define PROMPT "❓ UnknownCommand> "
 /**
 * main - simple UNIX command interpreter
 * This programms displays a prompt and wait an input
@@ -34,11 +34,6 @@ int main(void)
 	if (line[nread - 1] == '\n')
 		line[nread - 1] = '\0';
 
-	if (strcmp(line, "exit") == 0)
-	{
-	free(line);
-	break;
-	}
 	args = _splitline(line);
 	_execute(args);
 	free(line);
