@@ -28,7 +28,6 @@ int main(void)
 	nread = getline(&line, &len, stdin);
 	if (nread == -1)
 	{
-	free(line);
 	break;
 	}
 	if (line[nread - 1] == '\n')
@@ -36,13 +35,7 @@ int main(void)
 
 	args = _splitline(line);
 	_execute(args);
-	free(line);
 	free(args);
-	}
-	if (line)
-	{
-	free(line);
-	line = NULL;
 	}
 	free(line);
 	return (0);
