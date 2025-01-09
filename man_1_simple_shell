@@ -1,10 +1,54 @@
-.SH NAME
-simple_shell \- A simple UNIX command interpreter (shell)
+.\" Modified from man(1) of FreeBSD, the NetBSD mdoc.template, and mdoc.samples.
+.\" See Also:
+.\" man mdoc.samples for a complete listing of options
+.\" man mdoc for the short list of editing options
+.\" /usr/share/misc/mdoc.template
+.Dd 8/4/10          
+.Dt HSH 1                    
+.Os Darwin                    
+.Sh Project : Simple Shell    
+.Nm Holberton Simple Shell   
+.\" The following lines are read in generating the apropos(man -k) database.
+.\" Use only key words here as the database is built based on the words here and in the .ND line.
+.Nm hsh 
+.Nd Simple command-line interpreter shell
+.Sh SYNOPSIS                 
+.Nm Hsh [options] [file]
+.Sh DESCRIPTION              
+This project is a simple UNIX command-line interpreter, or shell, developed as part of the Holberton School curriculum. 
+The shell replicates basic functionalities of /bin/sh and provides an environment where users can execute commands interactively 
+or in non-interactive mode.
 
-.SH SYNOPSIS
-.B simple_shell
-[\-h] [\--help]
+The shell only supports basic commands by path and a custom implementation of the `ls` command for listing files in a directory.
 
-.SH DESCRIPTION
-.B simple_shell
-Is a simple UNIX command interpreter who can Handle command lines with arguments.
+
+
+.Sh ENVIRONMENT
+.Bl -tag -width "ENV_VAR_1" -indent
+.It Ev PATH :
+The PATH environment variable is used to locate commands to execute in the shell.
+.El
+
+.Sh FILES 
+.Bl -tag -width "/usr/share/file_name" -compact
+.It Pa /bin/ls
+The standard `ls` program used by the shell.
+.El
+
+.Sh DIAGNOSTICS 
+.Bl -diag
+.It No such file or directory
+This error occurs when the shell cannot find the file or command specified in the input.
+.It Command not found
+This error occurs when the user attempts to execute a non-existent command or executable.
+.El
+
+.Sh SEE ALSO
+.Xr ls 1
+.Xr sh 1
+
+.Sh BUGS
+Currently, the shell does not support PATH, the command exit and printing the current environment.
+
+.Sh HISTORY
+The `HSH` shell was developed as part of the Holberton School project to provide us with a basic understanding of UNIX shells and an inner workings.
