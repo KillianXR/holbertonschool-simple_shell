@@ -196,7 +196,10 @@ $ echo "pwd" | ./hsh
 ```
 
 ---
+## Flowchart
+https://app.diagrams.net/#G11FIqtslUCB1tLqo9s26OmJedCFFPkQdZ#%7B%22pageId%22%3A%22vRf3TFrPI6-1_eCz4jWq%22%7D
 
+---
 ## Authors
 
 - Gabriel Bescond
