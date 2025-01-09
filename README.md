@@ -103,7 +103,7 @@ valgrind --leak-check=full --show-leak-kinds=all ./hsh
 
 ## Functions and System Calls
 
-### `_splitline`
+### `splitline`
 
 #### Description
 
@@ -111,7 +111,9 @@ Divides a command line input into tokens (commands and arguments).
 
 #### Prototype
 
-
+```c
+char **_splitline(char *line)
+```
 
 #### Functionality
 
