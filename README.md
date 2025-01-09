@@ -73,7 +73,7 @@ The shell runs interactively when executed directly:
 $ ./hsh
 ❓ UnknownCommand> ls
 file1 file2 file3
-❓ UnknownCommand> 
+❓ UnknownCommand>
 exit
 ```
 
@@ -103,7 +103,7 @@ valgrind --leak-check=full --show-leak-kinds=all ./hsh
 
 ## Functions and System Calls
 
-### `splitline`
+### `_splitline`
 
 #### Description
 
@@ -111,9 +111,7 @@ Divides a command line input into tokens (commands and arguments).
 
 #### Prototype
 
-```c
-char **_splitline(char *line)
-```
+
 
 #### Functionality
 
