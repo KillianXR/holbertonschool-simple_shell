@@ -28,7 +28,6 @@ This project is a simple UNIX command-line interpreter, or shell, developed as p
 - Parses user input and tokenizes it into commands and arguments.
 - Searches for executable programs.
 - Handles basic errors, such as "command not found."
-- Supports built-in commands like `exit`.
 - Does not allow memory leaks.
 
 ---
@@ -181,7 +180,7 @@ Interactive Mode:
 
 ```bash
 $ ./hsh
-❓ UnknownCommand> pwd
+❓ UnknownCommand> /bin/pwd
 /home/user
 ❓ UnknownCommand> /bin/ls
 file1 file2 file3
@@ -191,8 +190,8 @@ file1 file2 file3
 Non-Interactive Mode:
 
 ```bash
-$ echo "pwd" | ./hsh
-/home/user
+$ echo "/bin/ls" | ./hsh
+file1 file2 file3
 ```
 
 ---
