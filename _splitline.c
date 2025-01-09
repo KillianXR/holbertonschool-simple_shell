@@ -10,6 +10,7 @@ char **_splitline(char *line)
 	char **args, **newargs, *token;
 	int count, position = 0;
 	int size = 64;
+
 	args = malloc(size * sizeof(char *));
 
 	if (!args)
@@ -23,7 +24,7 @@ char **_splitline(char *line)
 	{
 	args[position] = token;
 	position++;
-	
+
 	if (position >= size)
 	{
 	size = size * 2;
