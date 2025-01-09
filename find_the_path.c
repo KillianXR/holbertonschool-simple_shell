@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * find_path - Looks for a command in each directory specified in the PATH 
+ * find_path - Looks for a command in each directory specified in the PATH
 	* environment variable
  * @cmd: pointer to the command
  * Return: pointer to string containing the full path
