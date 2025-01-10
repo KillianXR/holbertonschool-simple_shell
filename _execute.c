@@ -13,6 +13,11 @@ int _execute(char **args)
 	int status;
 	char *command;
 
+	if (args[0] != NULL && strcmp(args[0], "exit") == 0)
+	{
+		exit(0);
+	}
+
 	if (args[0] == NULL)
 		return (1);
 
