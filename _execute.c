@@ -17,6 +17,16 @@ int _execute(char **args)
 	{
 		exit(0);
 	}
+	 if (args[0] != NULL && strcmp(args[0], "env") == 0)
+	{
+		char **env = environ;
+		while (*env)
+		{
+			printf("%s\n", *env);
+			env++;
+		}
+		return (0);
+	}
 
 	if (args[0] == NULL)
 		return (1);
