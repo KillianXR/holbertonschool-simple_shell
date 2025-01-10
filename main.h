@@ -14,6 +14,7 @@
 int main(void);
 char **_splitline(char *line);
 int _execute(char **args);
+char *_find_path_command(char *command);
 
 /* Déclaration de l'environnement */
 extern char **environ;
